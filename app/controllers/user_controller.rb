@@ -1,3 +1,5 @@
+require 'json'
+
 class UserController < ApplicationController
 
     def get_user
@@ -10,9 +12,8 @@ class UserController < ApplicationController
         render json: { status: "ok" }
     end
 
-    private
-
-    def current_user
-        User.first
+    def get_likes
+        statuses = JSON.parse(params[:ids]).map{ |x| [x, false] }.to_h
+        render json: { statuses: statuses }
     end
 end

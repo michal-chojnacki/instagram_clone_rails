@@ -6,6 +6,9 @@ Rails.application.routes.draw do
         post '/authenticate', to: 'authenticate#sign_in'
         get '/user', to: 'user#get_user'
         post '/user', to: 'user#update'
+        get '/likes', to: 'user#get_likes'
+        post '/content', to: 'content#add'
+        get '/content', to: 'content#get_user_content'
       end
     end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
