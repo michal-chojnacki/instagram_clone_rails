@@ -9,12 +9,12 @@ class ContentController < ApplicationController
     end
 
     def add
-        content = Content.create(description: params[:message], user: current_user)
+        content = Content.create(description: params[:message], user: @current_user)
         content.image.attach(params[:image])
         render json: { status: "ok" }
     end
 
     def get_user_content
-        render json: { contents: current_user.contents.order('created_at DESC') }
+        render json: { contents: @current_user.contents.order('created_at DESC') }
     end
 end
