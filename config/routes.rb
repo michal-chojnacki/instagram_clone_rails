@@ -8,6 +8,8 @@ Rails.application.routes.draw do
         post '/user', to: 'user#update'
         get '/likes', to: 'user#get_likes'
         post '/likes', to: 'user#add_like'
+        get '/observing', to: 'user#get_following_status'
+        post '/observing', to: 'user#change_following_status'
         post '/content', to: 'content#add'
         get '/content', to: 'content#get_user_content'
       end

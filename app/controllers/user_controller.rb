@@ -29,4 +29,22 @@ class UserController < ApplicationController
         end
         render json: { status: "ok" }
     end
+
+    def get_following_status
+        userId = params[:user]
+        followed_user = @current_user.followees.find_by_id(userId)
+        render json: { status: followed_user != nil, userId: followed_user.id }
+    end
+
+    def change_following_status
+        followed_user = User.find_by_id(params[:userId])
+        render json: { errors: "Content not found" }, status: :not_found  if followed_user == nil
+
+        if params[:status]
+            followed_user.followers << @current_user if followed_user.followers.find_by_id(@current_user) == nil
+        elsif 
+            followed_user.followers.delete(@current_user)
+        end
+        render json: { status: "ok" }
+    end
 end

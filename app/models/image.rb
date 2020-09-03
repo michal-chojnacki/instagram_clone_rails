@@ -5,7 +5,11 @@ class Image
     attr_accessor :url
 
     def image=(value)
-        @url = "http://10.0.2.2:3000" + rails_blob_path(value, only_path:true)
+        if value.attached?
+            @url = "http://10.0.2.2:3000" + rails_blob_path(value, only_path:true)
+        else
+            @url = ""
+        end
     end
 
     def as_json(options = {})
