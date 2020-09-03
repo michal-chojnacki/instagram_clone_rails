@@ -2,6 +2,8 @@ class User < ApplicationRecord
     has_secure_password
     has_one_attached :avatar
     has_many :contents, dependent: :destroy, foreign_key: "owner_id"
+    has_many :favourites
+    has_many :favourites_contents, through: :favourites, source: :content
     validates :username, presence: true, uniqueness: true
     validates :password,
               length: { minimum: 3 },
