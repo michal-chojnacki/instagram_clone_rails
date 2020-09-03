@@ -10,6 +10,7 @@ Rails.application.routes.draw do
         post '/likes', to: 'user#add_like'
         get '/observing', to: 'user#get_following_status'
         post '/observing', to: 'user#change_following_status'
+        get '/recommended_users', to: 'user#get_recommended_users'
         post '/content', to: 'content#add'
         get '/content', to: 'content#get_user_content'
       end

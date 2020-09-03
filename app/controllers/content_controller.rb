@@ -5,7 +5,9 @@ class ContentController < ApplicationController
     end
 
     def recommended
-        render json: { contents: [] }
+        render json: { contents: Content
+            .order('created_at DESC')
+            .select { |content| content.user != @current_user }  }
     end
 
     def add

@@ -47,4 +47,8 @@ class UserController < ApplicationController
         end
         render json: { status: "ok" }
     end
+
+    def get_recommended_users
+        render json: { recommendations: User.select { |user| user != @current_user } }
+    end
 end
