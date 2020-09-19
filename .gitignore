@@ -41,3 +41,4 @@
 yarn-debug.log*
 .yarn-integrity
 **/.DS_Store
+/config/app_environment_variables.rb
