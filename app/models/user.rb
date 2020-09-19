@@ -20,6 +20,9 @@ class User < ApplicationRecord
     def as_json(options = {})
         super.except("created_at", "updated_at").tap do |hash|
             hash[:avatar] = Image.new(image: self.avatar)
+            hash[:posts] = self.contents.length
+            hash[:followers] = self.followers.length
+            hash[:followees] = self.followees.length
         end
     end
 end
