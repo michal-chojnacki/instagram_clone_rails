@@ -7,8 +7,8 @@ class UserController < ApplicationController
     end
 
     def update
-        avatar = params[:avatar]
-        @current_user.avatar.attach(avatar)
+        @current_user.update(params.permit(:bio, :username, :fullname))
+        @current_user.avatar.attach(params[:avatar]) if(params[:avatar] != nil)
         render json: { status: "ok" }
     end
 
