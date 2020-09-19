@@ -6,7 +6,7 @@ class Image
 
     def image=(value)
         if value.attached?
-            @url = "https://michappsinstagram.herokuapp.com" + rails_blob_path(value, only_path:true)
+            @url = ENV['IMAGES_ROOT'] + rails_blob_path(value, only_path:true)
         else
             @url = ""
         end
