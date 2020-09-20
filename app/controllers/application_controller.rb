@@ -1,7 +1,14 @@
 class ApplicationController < ActionController::API
+    before_action :verify_api_key
     before_action :authorize_request, except: [:sign_in]
 
-    def authorize_request
+    def verify_api_key  
+      if request.headers['ApiKey'] != ENV['MobileAppKey']
+        render json: { errors: "Unauthorized request"}, status: :unauthorized
+      end
+    end
+
+    def authorize_request   
         header = request.headers['Authorization']
         header = header.split(' ').last if header
         begin
