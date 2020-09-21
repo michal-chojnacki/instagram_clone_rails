@@ -1,12 +1,26 @@
 class ContentController < ApplicationController
   def index
-    render json: { contents: Content.order("created_at DESC").all() }
+    page = params[:page].to_i
+    render json: { contents: Content.order("created_at DESC").page(page + 1),
+                   page: page,
+                   pages: Content.count / WillPaginate.per_page + 1 }
   end
 
   def recommended
-    render json: { contents: Content
-             .order("created_at DESC")
-             .select { |content| content.user != @current_user } }
+    page = params[:page].to_i
+    data = Content.order("created_at DESC").where.not(:user => @current_user)
+    render json: { contents: data.page(page + 1),
+      page: page,
+      pages: data.count / WillPaginate.per_page + 1  }
+  end
+
+  def search_content
+    page = params[:page].to_i
+    query = params[:query]
+    data = Content.where("description like ?", "%#{query}%")
+    render json: { contents: data.page(page + 1),
+      page: page,
+      pages: data.count / WillPaginate.per_page + 1  }
   end
 
   def add
@@ -16,11 +30,14 @@ class ContentController < ApplicationController
   end
 
   def get_user_content
+    page = params[:page].to_i
     if (params[:user] == nil)
       user = @current_user
-    elsif 
-      user = User.find(params[:user])
+    elsif user = User.find(params[:user])
     end
-    render json: { contents: user.contents.order("created_at DESC") }
+    data = user.contents.order("created_at DESC")
+    render json: { contents: data.page(page + 1),
+      page: page,
+      pages: data.count / WillPaginate.per_page + 1  }
   end
 end
