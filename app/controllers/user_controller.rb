@@ -49,6 +49,24 @@ class UserController < ApplicationController
     end
 
     def get_recommended_users
-        render json: { recommendations: User.select { |user| user != @current_user } }
+        render json: { users: User.select { |user| user != @current_user && user.followers.find_by_id(@current_user) == nil } }
+    end
+
+    def get_followers
+        page = params[:page].to_i
+        userId = params[:user].to_i
+        data = User.find_by_id(userId).followers
+        render json: { users: data.page(page + 1),
+          page: page,
+          pages: data.count / WillPaginate.per_page + 1  }
+    end
+
+    def get_followees
+        page = params[:page].to_i
+        userId = params[:user].to_i
+        data = User.find_by_id(userId).followees
+        render json: { users: data.page(page + 1),
+          page: page,
+          pages: data.count / WillPaginate.per_page + 1  }
     end
 end
