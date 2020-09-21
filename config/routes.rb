@@ -13,6 +13,7 @@ Rails.application.routes.draw do
         get '/recommended_users', to: 'user#get_recommended_users'
         post '/content', to: 'content#add'
         get '/content', to: 'content#get_user_content'
+        get '/search_content', to: 'content#search_content'
       end
     end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
