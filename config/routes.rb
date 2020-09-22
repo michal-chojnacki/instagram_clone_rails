@@ -4,6 +4,7 @@ Rails.application.routes.draw do
         get '/main_content', to: 'content#index'
         get '/recommended_content', to: 'content#recommended'
         post '/authenticate', to: 'authenticate#sign_in'
+        post '/register', to: 'authenticate#sign_up'
         get '/user', to: 'user#get_user'
         post '/user', to: 'user#update'
         get '/likes', to: 'user#get_likes'

@@ -49,7 +49,7 @@ class UserController < ApplicationController
     end
 
     def get_recommended_users
-        render json: { users: User.select { |user| user != @current_user && user.followers.find_by_id(@current_user) == nil } }
+        render json: { users: User.select { |user| user != @current_user && user.followers.find_by_id(@current_user) == nil }.take(30) }
     end
 
     def get_followers
