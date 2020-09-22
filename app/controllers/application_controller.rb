@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::API
     before_action :verify_api_key
-    before_action :authorize_request, except: [:sign_in]
+    before_action :authorize_request, except: [:sign_in, :sign_up]
 
     def verify_api_key  
       if request.headers['ApiKey'] != ENV['MOBILE_APP_KEY']
