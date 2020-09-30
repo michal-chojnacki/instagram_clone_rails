@@ -3,13 +3,21 @@ require 'json'
 class UserController < ApplicationController
 
     def get_user
-        render json: @current_user.as_json
+        if params[:user] != nil
+            user = User.find(params[:user])
+        else
+            user = @current_user
+        end
+        render json: user.as_json
     end
 
     def update
-        @current_user.update(params.permit(:bio, :username, :fullname))
-        @current_user.avatar.attach(params[:avatar]) if(params[:avatar] != nil)
-        render json: { status: "ok" }
+        if @current_user.update(params.permit(:bio, :username, :fullname))
+            @current_user.avatar.attach(params[:avatar]) if(params[:avatar] != nil)
+            render json: { status: "ok" }
+        else
+            render json: { errors: "Something went wrong" }, status: :error
+        end        
     end
 
     def get_likes
