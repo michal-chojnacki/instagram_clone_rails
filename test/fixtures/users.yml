@@ -2,12 +2,6 @@
 
 one:
   id: 
-  username: MyString
-  fullname: MyString
-  bio: MyText
-
-two:
-  id: 
-  username: MyString
-  fullname: MyString
+  username: username_1
+  fullname: password_2
   bio: MyText
